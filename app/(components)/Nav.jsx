@@ -7,14 +7,24 @@ const Navbar = () => {
     <nav className="flex justify-between items-center bg-nav p-4">
       <div className="flex items-center space-x-4">
         <Link href="/">
-          <FontAwesomeIcon icon={faHome} className="icon" />
+          <FontAwesomeIcon
+            icon={faHome}
+            title="see all tickets"
+            className="icon hover:text-cyan-400"
+          />
         </Link>
         <Link href="/ticketPage/new">
-          <FontAwesomeIcon icon={faTicket} className="icon" />
+          <FontAwesomeIcon
+            icon={faTicket}
+            className="icon hover:text-cyan-400"
+            title="Add New Ticket"
+          />
         </Link>
       </div>
       <div>
-        <p className="text-defaultText">suleman@gmail.com</p>
+        <p className="text-defaultText hover:text-cyan-400 cursor-pointer">
+          suleman@gmail.com
+        </p>
       </div>
     </nav>
   );

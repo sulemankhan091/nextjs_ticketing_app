@@ -1,9 +1,11 @@
+import TicketForm from "@/app/(components)/TicketForm";
 
-const TicketPage = ({params}) => {
+const TicketPage = ({ params }) => {
   return (
-    <div>TicketPage {params.id} 
+    <div>
+      <TicketForm />
     </div>
-  )
-}
+  );
+};
 
-export default TicketPage
+export default TicketPage;

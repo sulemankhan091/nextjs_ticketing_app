@@ -3,35 +3,55 @@
 @tailwind utilities;
 
 @layer base {
-    h1, h2, h3, h4 {
-        @apply font-bold;
-    }
+  body {
+    @apply font-medium;
+  }
 
-    h1 {
-        @apply text-4xl
-    }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold;
+  }
 
-    h2 {
-        @apply text-3xl
-    }
-    h3 {
-        @apply text-2xl
-    }
-    h4 {
-        @apply text-xl
-    }
+  h1 {
+    @apply text-4xl;
+  }
 
-    p {
-        @apply text-sm text-defaultText
-    }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+
+  p {
+    @apply text-sm text-defaultText;
+  }
+
+  form {
+    @apply rounded-xl p-4  mt-3;
+  }
+
+  label {
+    @apply mt-4 text-defaultText;
+  }
+
+  input,
+  select,
+  textarea {
+    @apply m-1 rounded bg-card py-1 px-3 border-2 focus:border-defaultText focus:outline-none;
+  }
 }
 
-
 @layer components {
-    .icon {
-        @apply text-defaultText text-xl;
-    }
-    .btn {
-        @apply hover:no-underline bg-blueAccent hover:bg-blueAccentHover tracking-wider w-full text-center text-nav font-bold cursor-pointer uppercase px-4 py-2 rounded  transition-colors block;
-    }
+  .icon {
+    @apply text-defaultText text-xl;
+  }
+  .btn {
+    @apply hover:no-underline bg-blueAccent hover:bg-blueAccentHover tracking-wider w-full text-center text-nav font-bold cursor-pointer uppercase px-4 py-2 rounded  transition-colors block;
+  }
 }
