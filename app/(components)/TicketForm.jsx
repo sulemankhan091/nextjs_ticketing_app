@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-const TicketForm = () => {
+const TicketForm = ({ ticket }) => {
+  const EDITMODE = ticket._id === "new" ? false : true;
+
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -18,17 +20,27 @@ const TicketForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/Tickets", {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      "Content-Type": "application/json",
-    });
+    if (EDITMODE) {
+      const res = await fetch(`/api/Tickets/${ticket._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData }),
+        "Content-Type": "application/json",
+      });
+      router.refresh();
+      router.push("/");
+    } else {
+      const res = await fetch("/api/Tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        "Content-Type": "application/json",
+      });
 
-    if (!res.ok) {
-      throw new Error("failed to create ticket");
+      if (!res.ok) {
+        throw new Error("failed to create ticket");
+      }
+      router.refresh();
+      router.push("/");
     }
-    router.refresh();
-    router.push("/");
   };
 
   const startingTicketData = {
@@ -40,6 +52,15 @@ const TicketForm = () => {
     status: "not yet started",
   };
 
+  // to update ticket Data
+  if (EDITMODE) {
+    startingTicketData["title"] = ticket.title;
+    startingTicketData["description"] = ticket.description;
+    startingTicketData["category"] = ticket.category;
+    startingTicketData["progress"] = ticket.progress;
+    startingTicketData["status"] = ticket.status;
+  }
+
   const [formData, setFormData] = useState(startingTicketData);
 
   return (
@@ -50,7 +71,7 @@ const TicketForm = () => {
         onSubmit={handleSubmit}
       >
         <h3 className="text-center text-defaultText capitalize font-medium">
-          Create your new Ticket
+          {EDITMODE ? "update your ticket" : "Create your new Ticket"}
         </h3>
         <label htmlFor="title">Title</label>
         <input
@@ -158,7 +179,11 @@ const TicketForm = () => {
           <option value="done">Done</option>
         </select>
         <div className="flex items-center justify-center">
-          <input type="submit" value="Create Ticket" className="btn max-w-sm " />
+          <input
+            type="submit"
+            value={EDITMODE ? "update  ticket" : "Create  Ticket"}
+            className="btn max-w-sm "
+          />
         </div>
       </form>
     </div>
